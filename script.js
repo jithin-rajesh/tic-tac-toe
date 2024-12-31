@@ -2,6 +2,7 @@ function Gameboard() {
     const rows = 3;
     const columns = 3;
     const board = [];
+    const cellContainer = document.querySelector('.game');
 
     for (let i = 0; i < rows; i++) {
         board[i] = [];
@@ -10,6 +11,8 @@ function Gameboard() {
         }
     }
 
+
+    
     const getBoard = () => board;
     
     
@@ -23,11 +26,64 @@ function Gameboard() {
     console.log(board);
     };
 
+    const renderCells  = () => {
+        cellContainer.innerHTML = '';
+        for (let i = 0; i < board.length; i++)
+        {
+            for (let j = 0; j < board[i].length; j++)
+            {
+                let img = document.createElement('img');
+                const cell = document.createElement('div');
+                cell.classList.add('box');
+                cell.addEventListener('click', () => {
+                    
+
+                    if(board[i][j] != 0)
+                    {
+                        console.log("Already Occupried, Try Again.");
+                        return;
+                    }
+                    game.playRound(i, j);
+
+                    const img = document.createElement('img');
+                    if(board[i][j] === 'X')
+                    {
+                        img.src = 'icons/x-symbol-svgrepo-com.svg'
+                    }
+                    else
+                    {
+                        img.src = 'icons/circle-svgrepo-com.svg'
+                    }
+                    img.style.maxWidth = '90%';
+                    img.style.maxHeight = '90%';
+                    cell.appendChild(img);
+                    if(game.findWinner()) {
+                        removeAllListeners();
+                    }
+                    renderCells;                    
+                 })
+                cellContainer.appendChild(cell);
+            }
+        }       
+
+    }
+
+    const removeAllListeners = () => {
+        const cells = document.querySelectorAll('.box');
+        cells.forEach(cell => {
+            const handleClick = cell.dataset.listener;
+            if (handleClick) {
+                cell.removeEventListener('click', handleClick);
+            }
+        });
+    };
+    
 
     return {
         getBoard,
         placePiece,
-        printBoard
+        printBoard,
+        renderCells
     };
 }
 
@@ -39,15 +95,18 @@ function GameController(
     playerOneName = "Player One",
     playerTwoName = "Player Two"
 ){
+
+    
     const board = Gameboard();
+    board.renderCells();
     const players = [
         {
             name: playerOneName,
-            token: 1
+            token: 'X'
         }, 
         {
             name: playerTwoName,
-            token: 2
+            token: 'O'
         }
     ];
 
@@ -122,7 +181,10 @@ function GameController(
         
     };
 
+    
+
     printNewRound();
+
 
     return{
         playRound,
