@@ -40,9 +40,17 @@
     isolation: isolate;
   }
 
+@font-face {
+  font-family: Doner;
+  src: url(fonts/doner-regulardisplay.woff2);
+}
 body {
     background-color: black;
+    color: white;
+    text-align: center;
+    font-family: Doner;
 }
+
 .container {
     display: flex;
     justify-content: center;
@@ -59,11 +67,10 @@ body {
     max-height: 400px;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    position: fixed;
+    position: relative;
 }
 
 .box {
-    position: relative;
     border: 5px rgb(255, 255, 255) solid;
     box-sizing: border-box;
     color: white;
@@ -72,4 +79,7 @@ body {
     align-items: center;
 }
 
-  
+h1 {
+  padding: 5vh;
+  font-size: 46px;
+}
