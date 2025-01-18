@@ -57,6 +57,14 @@ body {
     padding: 50px;
     border: 3px black solid;
 }
+
+#app {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    justify-content: center;
+}
+
 .game {
     display: grid;
     height: 50vw;
